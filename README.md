@@ -33,7 +33,9 @@ Measured on 2026-10-23 with llama.cpp SYCL, one server slot, seeds 1001-1032, 32
 
 `push-1010` and `push-1016` sent tool-call arguments that llama.cpp could not parse as JSON, so those two have no score. The other 30 scored 0.
 
-[demo.mp4](demo.mp4) is the scripted solver on seeds 1001, 1003, 1007, and 1012. Each seed reaches the goal with 0 collisions.
+![Scripted solver on seeds 1001, 1003, 1007, and 1012](demo.gif)
+
+Each seed reaches the goal with 0 collisions. `demo.mp4` is the same clip.
 
 ## Run a local model
 
