@@ -1,0 +1,41 @@
+[project]
+name = "sdk-arm-push"
+version = "0.0.2"
+description = "A simulated arm pushes a box to a goal through SDK-style tool calls (pose with IK, jog, estop); MuJoCo decides the reward."
+requires-python = ">=3.12,<3.13"
+license = "Apache-2.0"
+dependencies = [
+  # verifiers v1 is pinned to the commit this env was built and validated against.
+  "verifiers",
+  "mujoco==3.16.0",
+  "numpy==2.5.4",
+]
+
+[project.optional-dependencies]
+render = ["imageio==2.38.1", "imageio-ffmpeg==0.6.0", "pillow==13.0.0"]
+# Same pins and index as andomeder/decision-robot-control. Only needed for
+# `make gpu-info` to report torch.xpu, or for later tiers that run learned policies.
+xpu = ["torch==2.9.1", "pytorch-triton-xpu==3.5.0"]
+
+[dependency-groups]
+dev = ["pytest==9.1.1"]
+
+[tool.uv]
+index-strategy = "unsafe-best-match"
+
+[[tool.uv.index]]
+name = "pytorch-xpu"
+url = "https://download.pytorch.org/whl/xpu"
+explicit = true
+
+[tool.uv.sources]
+verifiers = { git = "https://github.com/PrimeIntellect-ai/verifiers", rev = "c5fd0582ed7636f5211ea67f8ef8bcaaf80701ba" }
+torch = [{ index = "pytorch-xpu" }]
+pytorch-triton-xpu = [{ index = "pytorch-xpu" }]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["sdk_arm_push"]
